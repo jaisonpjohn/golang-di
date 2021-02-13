@@ -2,7 +2,7 @@ package main
 
 type customerService interface {
 	getCustomer(id string) Customer
-	getOrders(customerId string) Order
+	getOrders(customerId string) []Order
 }
 type customerServiceImpl struct {
  cDao *customerDao `inject`
