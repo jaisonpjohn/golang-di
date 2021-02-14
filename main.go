@@ -16,11 +16,11 @@ func main()  {
 }
 
 func SetRoutes(router *mux.Router){
-	cDao := customerDaoImpl{}
-	oDao := orderDaoImpl{}
+	customerDao := customerDaoImpl{}
+	orderDao := orderDaoImpl{}
 	cService := customerServiceImpl{
-		cDao: &cDao,
-		oDao: &oDao,
+		cDao: &customerDao,
+		oDao: &orderDao,
 	}
 	customerController := customerController{customerService: &cService} // read it from weavedContext
 	customerRouter := router.PathPrefix("/customers").Subrouter()
