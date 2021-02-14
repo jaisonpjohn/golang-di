@@ -7,7 +7,7 @@ import (
 )
 
 type customerController struct {
- customerService customerService `inject`
+ customerService customerService
 }
 
 func (c customerController) Register(customerRouter *mux.Router) {
