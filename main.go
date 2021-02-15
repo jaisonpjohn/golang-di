@@ -28,7 +28,7 @@ func bootstrap(){
 		oDao: bootstrapContext["orderDao"].(orderDao),
 	}
 	bootstrapContext["customerController"] = &customerController{
-		customerService: bootstrapContext["customerService"].(customerService),
+		cService: bootstrapContext["customerService"].(customerService),
 	}
 }
 
