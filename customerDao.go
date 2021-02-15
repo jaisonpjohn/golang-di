@@ -8,5 +8,5 @@ type customerDaoImpl struct {
 }
 
 func (customerDaoImpl) getCustomer(id string) Customer {
-	return Customer{Id: id, Name: "jaison"}
+	return Customer{Id: id, Name: "John Doe"}
 }
