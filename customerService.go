@@ -5,14 +5,14 @@ type customerService interface {
 	getOrders(customerId string) []Order
 }
 type customerServiceImpl struct {
- cDao customerDao
- oDao orderDao
+ CDao customerDao `inject:""`
+ ODao orderDao `inject:""`
 }
 func (c customerServiceImpl) getCustomer(id string) Customer {
-	return c.cDao.getCustomer(id)
+	return c.CDao.getCustomer(id)
 }
 func (c customerServiceImpl) getOrders(customerId string) []Order {
-	return c.oDao.getOrders(customerId)
+	return c.ODao.getOrders(customerId)
 }
 type Customer struct {
 	Id string `json:"id"`

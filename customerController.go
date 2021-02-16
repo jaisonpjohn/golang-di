@@ -7,7 +7,7 @@ import (
 )
 
 type customerController struct {
- cService customerService
+ CService customerService `inject:""`
 }
 
 func (c customerController) Register(customerRouter *mux.Router) {
@@ -15,7 +15,7 @@ func (c customerController) Register(customerRouter *mux.Router) {
 }
 func (c customerController) getCustomer(w http.ResponseWriter, r *http.Request) {
  id := mux.Vars(r)["id"]
- customer := c.cService.getCustomer(id)
+ customer := c.CService.getCustomer(id)
  jsonValue, _ := json.Marshal(customer)
  w.Header().Set("Content-Type", "application/json")
  w.WriteHeader(http.StatusOK)
@@ -23,5 +23,5 @@ func (c customerController) getCustomer(w http.ResponseWriter, r *http.Request) 
 
 }
 func (c customerController) getOrders(customerId string) []Order {
- return c.cService.getOrders(customerId)
+ return c.CService.getOrders(customerId)
 }
