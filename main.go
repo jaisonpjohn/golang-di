@@ -22,21 +22,15 @@ func main()  {
 
 func bootstrap(){
 	bootstrapContext = map[string]interface{}{}
-	var o orderDaoImpl
-	register(o, "orderDao")
-
-	var c customerDaoImpl
-	register(c, "customerDao")
-	var d customerServiceImpl
-	register(d, "customerService")
-	var contlr customerController
-	register(contlr, "customerController")
+	register((*orderDaoImpl)(nil), "orderDao")
+	register((*customerDaoImpl)(nil), "customerDao")
+	register((*customerServiceImpl)(nil), "customerService")
+	register((*customerController)(nil), "customerController")
 }
 
 func register(candidate interface{}, name string) {
-	t := reflect.TypeOf(candidate)
+	t := reflect.TypeOf(candidate).Elem()
 	vava := reflect.New(t)
-	fmt.Println("---t.NumField()---",t.NumField())
 	for i := 0; i < t.NumField(); i++ {
 		f := reflect.Indirect(vava).Field(i)
 		ft := t.Field(i)
@@ -48,7 +42,6 @@ func register(candidate interface{}, name string) {
 			} else {
 				name = ft.Type.Name()
 			}
-			fmt.Println("f",f,"---ft:",ft, "--FtTag:",name)
 			if val, ok := bootstrapContext[name]; ok {
 				f.Set(reflect.ValueOf(val))
 			} else{
