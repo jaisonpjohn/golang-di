@@ -16,7 +16,6 @@ func main()  {
 	bootstrap()
 	SetRoutes(router)
 	log.Fatal(http.ListenAndServe(":8081", router))
-	//fmt.Println("Server is Shutting Down")
 }
 
 
@@ -30,9 +29,9 @@ func bootstrap(){
 
 func register(candidate interface{}, name string) {
 	t := reflect.TypeOf(candidate).Elem()
-	vava := reflect.New(t)
+	val := reflect.New(t)
 	for i := 0; i < t.NumField(); i++ {
-		f := reflect.Indirect(vava).Field(i)
+		f := reflect.Indirect(val).Field(i)
 		ft := t.Field(i)
 		customName, ok := ft.Tag.Lookup("inject")
 		var name string
@@ -50,7 +49,7 @@ func register(candidate interface{}, name string) {
 
 		}
 	}
-	bootstrapContext[name] = vava.Interface()
+	bootstrapContext[name] = val.Interface()
 }
 
 func SetRoutes(router *mux.Router){
